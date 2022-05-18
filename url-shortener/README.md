@@ -1,19 +1,35 @@
-# UrlShortener
+# URL Shortener
 
-To start your Phoenix server:
+URL Shortener microservice implemented on Phoenix.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Instructions
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To start this app:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- Installing Dependencies
 
-## Learn more
+```
+mix deps.get
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+- create and migrate the database:
+
+```
+mix ecto.setup
+```
+
+- Running Phoenix Application:
+
+```
+mix phx.server
+```
+
+- Run Phoenix Test Application:
+
+```
+mix test
+```
+
+## Basic Features
+
+- Check more about this project: [FreeCodeCamp](https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice).
