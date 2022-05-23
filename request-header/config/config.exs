@@ -12,7 +12,8 @@ config :request_header, RequestHeaderWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: RequestHeaderWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: RequestHeader.PubSub,
-  live_view: [signing_salt: "cNTZ3kiG"]
+  live_view: [signing_salt: "cNTZ3kiG"],
+  server: true
 
 # Configures Elixir's Logger
 config :logger, :console,

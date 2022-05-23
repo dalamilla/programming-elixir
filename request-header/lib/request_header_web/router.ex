@@ -5,7 +5,12 @@ defmodule RequestHeaderWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :cors do
+    plug CORSPlug
+  end
+
   scope "/api", RequestHeaderWeb do
-    pipe_through :api
+    pipe_through [:cors, :api]
+    get "/whoami", WhoamiController, :index
   end
 end
