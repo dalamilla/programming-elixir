@@ -8,14 +8,19 @@
 import Config
 
 config :url_shortener,
-  ecto_repos: [UrlShortener.Repo]
+  ecto_repos: [UrlShortener.Repo],
+  generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
 config :url_shortener, UrlShortenerWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: UrlShortenerWeb.ErrorView, accepts: ~w(json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [json: UrlShortenerWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: UrlShortener.PubSub,
-  live_view: [signing_salt: "QrYRTD8f"]
+  live_view: [signing_salt: "KF2MH4Rb"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -6,6 +6,7 @@ config :url_shortener, UrlShortener.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "url_shortener_dev",
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -13,16 +14,16 @@ config :url_shortener, UrlShortener.Repo,
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
-# watchers to your application. For example, we use it
-# with esbuild to bundle .js and .css sources.
+# watchers to your application. For example, we can use it
+# to bundle .js and .css sources.
 config :url_shortener, UrlShortenerWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: true,
-  secret_key_base: "ufxLwtAsK4NThwbNzOMtGHXjY0gObnpHpsFA9rxtQZgpbQEJ8F266TDwbdWHI676",
+  debug_errors: false,
+  secret_key_base: "K6Ilf9q35Im/sSeIBwHYXhHUQDsj14dM9Cw+oR3mLS3QG3/StywOjn084qel26sq",
   watchers: []
 
 # ## SSL Support
@@ -33,7 +34,6 @@ config :url_shortener, UrlShortenerWeb.Endpoint,
 #
 #     mix phx.gen.cert
 #
-# Note that this task requires Erlang/OTP 20 or later.
 # Run `mix help phx.gen.cert` for more information.
 #
 # The `http:` config above can be replaced with:
@@ -48,6 +48,9 @@ config :url_shortener, UrlShortenerWeb.Endpoint,
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
+
+# Enable dev routes for dashboard and mailbox
+config :url_shortener, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

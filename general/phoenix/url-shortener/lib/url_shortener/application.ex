@@ -8,16 +8,14 @@ defmodule UrlShortener.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      UrlShortener.Repo,
-      # Start the Telemetry supervisor
       UrlShortenerWeb.Telemetry,
-      # Start the PubSub system
+      UrlShortener.Repo,
+      {DNSCluster, query: Application.get_env(:url_shortener, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: UrlShortener.PubSub},
-      # Start the Endpoint (http/https)
-      UrlShortenerWeb.Endpoint
       # Start a worker by calling: UrlShortener.Worker.start_link(arg)
-      # {UrlShortener.Worker, arg}
+      # {UrlShortener.Worker, arg},
+      # Start to serve requests, typically the last entry
+      UrlShortenerWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

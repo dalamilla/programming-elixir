@@ -19,21 +19,20 @@ defmodule UrlShortenerWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint UrlShortenerWeb.Endpoint
+
+      use UrlShortenerWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import UrlShortenerWeb.ConnCase
-
-      alias UrlShortenerWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint UrlShortenerWeb.Endpoint
     end
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(UrlShortener.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    UrlShortener.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

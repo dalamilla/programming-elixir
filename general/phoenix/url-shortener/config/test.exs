@@ -11,17 +11,17 @@ config :url_shortener, UrlShortener.Repo,
   hostname: "localhost",
   database: "url_shortener_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :url_shortener, UrlShortenerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "7O9VjLg6OJW9RTzhZFj3UIHhznsh5u8QknzehSuEhE/O8T2bhTOHadOsXhw5tb/F",
+  secret_key_base: "t74jv3tclZjd9AgmgQIEDlNmxqsq1FCUMlrXX0E165LKph9J3gZImTUBnvVJ4APS",
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

@@ -7,10 +7,13 @@ defmodule UrlShortenerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_url_shortener_key",
-    signing_salt: "9Cj9/6Lu"
+    signing_salt: "iiRRBY56",
+    same_site: "Lax"
   ]
 
-  # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -20,7 +23,7 @@ defmodule UrlShortenerWeb.Endpoint do
     at: "/",
     from: :url_shortener,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: UrlShortenerWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -28,6 +31,10 @@ defmodule UrlShortenerWeb.Endpoint do
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :url_shortener
   end
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
@@ -40,5 +47,6 @@ defmodule UrlShortenerWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug CORSPlug
   plug UrlShortenerWeb.Router
 end
