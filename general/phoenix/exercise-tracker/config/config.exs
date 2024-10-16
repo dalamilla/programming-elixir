@@ -8,19 +8,24 @@
 import Config
 
 config :exercise_tracker,
-  ecto_repos: [ExerciseTracker.Repo]
+  ecto_repos: [ExerciseTracker.Repo],
+  generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
 config :exercise_tracker, ExerciseTrackerWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: ExerciseTrackerWeb.ErrorView, accepts: ~w(json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [html: ExerciseTrackerWeb.ErrorHTML, json: ExerciseTrackerWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: ExerciseTracker.PubSub,
-  live_view: [signing_salt: "iUVFXodA"]
+  live_view: [signing_salt: "VbBihWuv"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.0",
-  default: [
+  version: "0.17.11",
+  exercise_tracker: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),

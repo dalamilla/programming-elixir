@@ -8,16 +8,14 @@ defmodule ExerciseTracker.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      ExerciseTracker.Repo,
-      # Start the Telemetry supervisor
       ExerciseTrackerWeb.Telemetry,
-      # Start the PubSub system
+      ExerciseTracker.Repo,
+      {DNSCluster, query: Application.get_env(:exercise_tracker, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: ExerciseTracker.PubSub},
-      # Start the Endpoint (http/https)
-      ExerciseTrackerWeb.Endpoint
       # Start a worker by calling: ExerciseTracker.Worker.start_link(arg)
-      # {ExerciseTracker.Worker, arg}
+      # {ExerciseTracker.Worker, arg},
+      # Start to serve requests, typically the last entry
+      ExerciseTrackerWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

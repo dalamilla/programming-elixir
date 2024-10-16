@@ -1,0 +1,12 @@
+/* This file is for your main application CSS */
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}

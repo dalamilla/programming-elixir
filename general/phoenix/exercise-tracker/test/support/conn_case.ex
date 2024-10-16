@@ -19,21 +19,20 @@ defmodule ExerciseTrackerWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint ExerciseTrackerWeb.Endpoint
+
+      use ExerciseTrackerWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import ExerciseTrackerWeb.ConnCase
-
-      alias ExerciseTrackerWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint ExerciseTrackerWeb.Endpoint
     end
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(ExerciseTracker.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    ExerciseTracker.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
