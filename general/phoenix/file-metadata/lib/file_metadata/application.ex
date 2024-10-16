@@ -8,14 +8,13 @@ defmodule FileMetadata.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
       FileMetadataWeb.Telemetry,
-      # Start the PubSub system
+      {DNSCluster, query: Application.get_env(:file_metadata, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: FileMetadata.PubSub},
-      # Start the Endpoint (http/https)
-      FileMetadataWeb.Endpoint
       # Start a worker by calling: FileMetadata.Worker.start_link(arg)
-      # {FileMetadata.Worker, arg}
+      # {FileMetadata.Worker, arg},
+      # Start to serve requests, typically the last entry
+      FileMetadataWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

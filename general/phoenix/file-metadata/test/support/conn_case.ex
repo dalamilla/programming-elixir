@@ -19,15 +19,15 @@ defmodule FileMetadataWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint FileMetadataWeb.Endpoint
+
+      use FileMetadataWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import FileMetadataWeb.ConnCase
-
-      alias FileMetadataWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint FileMetadataWeb.Endpoint
     end
   end
 

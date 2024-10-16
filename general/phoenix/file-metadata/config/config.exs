@@ -7,17 +7,24 @@
 # General application configuration
 import Config
 
+config :file_metadata,
+  generators: [timestamp_type: :utc_datetime]
+
 # Configures the endpoint
 config :file_metadata, FileMetadataWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: FileMetadataWeb.ErrorView, accepts: ~w(json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [html: FileMetadataWeb.ErrorHTML, json: FileMetadataWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: FileMetadata.PubSub,
-  live_view: [signing_salt: "uzPiRdBD"]
+  live_view: [signing_salt: "oiFjlPH7"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.0",
-  default: [
+  version: "0.17.11",
+  file_metadata: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
