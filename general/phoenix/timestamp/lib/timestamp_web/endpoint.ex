@@ -7,10 +7,13 @@ defmodule TimestampWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_timestamp_key",
-    signing_salt: "H3WQeEJf"
+    signing_salt: "FT+aWicP",
+    same_site: "Lax"
   ]
 
-  # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  # socket "/live", Phoenix.LiveView.Socket,
+  #   websocket: [connect_info: [session: @session_options]],
+  #   longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -20,7 +23,7 @@ defmodule TimestampWeb.Endpoint do
     at: "/",
     from: :timestamp,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: TimestampWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -39,5 +42,6 @@ defmodule TimestampWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug CORSPlug
   plug TimestampWeb.Router
 end

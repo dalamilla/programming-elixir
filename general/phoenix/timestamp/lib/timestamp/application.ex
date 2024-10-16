@@ -8,14 +8,13 @@ defmodule Timestamp.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
       TimestampWeb.Telemetry,
-      # Start the PubSub system
+      {DNSCluster, query: Application.get_env(:timestamp, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Timestamp.PubSub},
-      # Start the Endpoint (http/https)
-      TimestampWeb.Endpoint
       # Start a worker by calling: Timestamp.Worker.start_link(arg)
-      # {Timestamp.Worker, arg}
+      # {Timestamp.Worker, arg},
+      # Start to serve requests, typically the last entry
+      TimestampWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
