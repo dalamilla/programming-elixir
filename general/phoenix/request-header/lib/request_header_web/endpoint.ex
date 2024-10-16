@@ -7,10 +7,13 @@ defmodule RequestHeaderWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_request_header_key",
-    signing_salt: "eBI0IMK6"
+    signing_salt: "eBI0IMK6",
+    same_site: "Lax"
   ]
 
-  # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  # socket "/live", Phoenix.LiveView.Socket,
+  #   websocket: [connect_info: [session: @session_options]],
+  #   longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -20,7 +23,7 @@ defmodule RequestHeaderWeb.Endpoint do
     at: "/",
     from: :request_header,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: RequestHeaderWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -39,5 +42,6 @@ defmodule RequestHeaderWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug CORSPlug
   plug RequestHeaderWeb.Router
 end

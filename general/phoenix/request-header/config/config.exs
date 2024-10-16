@@ -7,13 +7,19 @@
 # General application configuration
 import Config
 
+config :request_header,
+  generators: [timestamp_type: :utc_datetime]
+
 # Configures the endpoint
 config :request_header, RequestHeaderWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: RequestHeaderWeb.ErrorView, accepts: ~w(json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [json: RequestHeaderWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: RequestHeader.PubSub,
-  live_view: [signing_salt: "cNTZ3kiG"],
-  server: true
+  live_view: [signing_salt: "cNTZ3kiG"]
 
 # Configures Elixir's Logger
 config :logger, :console,

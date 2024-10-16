@@ -1,4 +1,4 @@
-defmodule RequestHeaderWeb.WhoamiViewTest do
+defmodule RequestHeaderWeb.WhoamiJSONTest do
   use RequestHeaderWeb.ConnCase, async: true
 
   import Phoenix.View
@@ -10,7 +10,7 @@ defmodule RequestHeaderWeb.WhoamiViewTest do
       soft: "Mozilla/5.0 (X11; Linux x86_64)"
     }
 
-    assert render(RequestHeaderWeb.WhoamiView, "index.json", %{info: info}) == %{
+    assert render(RequestHeaderWeb.WhoamiJSON, "index.json", %{info: info}) == %{
              ipaddress: info.ip,
              language: info.lang,
              software: info.soft

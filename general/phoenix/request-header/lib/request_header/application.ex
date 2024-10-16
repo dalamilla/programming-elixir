@@ -8,14 +8,13 @@ defmodule RequestHeader.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
       RequestHeaderWeb.Telemetry,
-      # Start the PubSub system
+      {DNSCluster, query: Application.get_env(:request_header, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: RequestHeader.PubSub},
-      # Start the Endpoint (http/https)
-      RequestHeaderWeb.Endpoint
       # Start a worker by calling: RequestHeader.Worker.start_link(arg)
-      # {RequestHeader.Worker, arg}
+      # {RequestHeader.Worker, arg},
+      # Start to serve requests, typically the last entry
+      RequestHeaderWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

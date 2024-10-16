@@ -11,6 +11,6 @@ defmodule RequestHeaderWeb.WhoamiController do
       lang: headers["accept-language"]
     }
 
-    render(conn, "index.json", info: info)
+    render(conn, :index, info: info)
   end
 end

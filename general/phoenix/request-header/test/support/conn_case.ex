@@ -19,15 +19,15 @@ defmodule RequestHeaderWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint RequestHeaderWeb.Endpoint
+
+      use RequestHeaderWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import RequestHeaderWeb.ConnCase
-
-      alias RequestHeaderWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint RequestHeaderWeb.Endpoint
     end
   end
 
